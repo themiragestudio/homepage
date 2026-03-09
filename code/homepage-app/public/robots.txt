@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://themiragestudio.github.io/homepage/sitemap.xml

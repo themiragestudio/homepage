@@ -1,0 +1,50 @@
+#!/bin/bash
+# Deploy HomePage to production server
+# This script builds the Vite app and deploys the dist/ folder
+
+set -e  # Exit on error
+
+echo "🚀 Starting deployment to 42.192.51.42..."
+
+# Navigate to project directory
+cd "/Users/sysadmin/.openclaw/Mirage Studio/Projects/homepage/code/homepage-app"
+
+# Build the production version
+echo "📦 Building production bundle with pnpm..."
+pnpm run build
+
+# Check if build succeeded
+if [ ! -d "dist" ]; then
+    echo "❌ Build failed - dist/ directory not found"
+    exit 1
+fi
+
+echo "✅ Build completed successfully"
+echo "📊 Build output:"
+ls -lh dist/
+
+# Deploy to server
+echo "🌐 Deploying to server..."
+SERVER="root@42.192.51.42"
+REMOTE_PATH="/var/www/mirage-studio"
+
+# Create remote directory if it doesn't exist
+ssh $SERVER "mkdir -p $REMOTE_PATH"
+
+# Backup existing deployment
+echo "💾 Creating backup..."
+ssh $SERVER "if [ -d $REMOTE_PATH/backup ]; then rm -rf $REMOTE_PATH/backup; fi"
+ssh $SERVER "if [ -d $REMOTE_PATH/index.html ]; then mkdir -p $REMOTE_PATH/backup && cp -r $REMOTE_PATH/* $REMOTE_PATH/backup/ 2>/dev/null || true; fi"
+
+# Upload new files
+echo "📤 Uploading files..."
+rsync -avz --delete dist/ $SERVER:$REMOTE_PATH/
+
+# Verify deployment
+echo "🔍 Verifying deployment..."
+ssh $SERVER "ls -la $REMOTE_PATH/"
+
+echo "✅ Deployment completed!"
+echo "🌍 Site should be live at: http://42.192.51.42/"
+echo ""
+echo "To verify, run: curl -s http://42.192.51.42/ | head -20"
