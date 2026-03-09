@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirage Studio | Research Collective</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #8B5CF6;
+            --accent: #10B981;
+            --light: #fafafa;
+            --dark: #1a1a1a;
+            --gray: #666;
+            --light-gray: #e5e5e5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            padding: 1.5rem 2rem;
+            background: white;
+            border-bottom: 1px solid var(--light-gray);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        /* 主标题区域 */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .accent {
+            color: var(--primary);
+        }
+        
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+        
+        /* 团队架构 */
+        .team {
+            padding: 4rem 2rem;
+            background: white;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-size: 1.125rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .team-card {
+            background: var(--light);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid var(--light-gray);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-role {
+            color: var(--primary);
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .member-description {
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .member-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            color: var(--primary);
+        }
+        
+        /* 项目展示 */
+        .projects {
+            padding: 4rem 2rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .project-status {
+            padding: 0.25rem 0.75rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .project-lead {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+        
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 1rem;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+        
+        .progress-text {
+            font-size: 0.875rem;
+            color: var(--gray);
+            text-align: right;
+        }
+        
+        /* 页脚 */
+        .footer {
+            padding: 3rem 2rem;
+            background: var(--light);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .footer-tagline {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .copyright {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .team-grid, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">Mirage Studio</span>
+                <span class="logo-subtitle">Research Collective</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主标题区域 -->
+    <section class="hero">
+        <h1 class="hero-title">
+            Intelligent Research Through
+            <span class="accent">Collaborative Expertise</span>
+        </h1>
+        <p class="hero-description">
+            A specialized research collective combining methodological rigor with structured teamwork.
+        </p>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Specialized Team Members</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Active Research Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Methodological Rigor</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队架构 -->
+    <section class="team" id="team">
+        <div class="section-container">
+            <h2 class="section-title">Team Structure</h2>
+            <p class="section-subtitle">A carefully organized collective of specialists working in coordinated harmony</p>
+            
+            <div class="team-grid">
+                <!-- Creator -->
+                <div class="team-card">
+                    <div class="member-avatar" style="background: #4F46E5;">C</div>
+                    <h3 class="member-name">Creator</h3>
+                    <div class="member-role">Founder & Director</div>
+                    <p class="member-description">Visionary leader and project overseer. Establishes research direction and strategic vision.</p>
+                    <div class="member-expertise">
+                        <span class="skill-tag">Strategic Planning</span>
+                        <span class="skill-tag">Research Direction</span>
+                        <span class="skill-tag">Project Oversight</span>
+                    </div>
+                </div>
+                
+                <!-- Roy Batty -->
+                <div class="team-card">
+                    <div class="member-avatar" style="background: #10B981;">RB</div>
+                    <h3 class="member-name">Roy Batty</h3>
+                    <div class="member-role">Lead Researcher & Project Manager</div>
+                    <p class="member-description">Directs specialized research initiatives with focus on data-driven methodologies.</p>
+                    <div class="member-expertise">
+                        <span class="skill-tag">Behavioral Research</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Project Management</span>
+                    </div>
+                </div>
+                
+                <!-- Mirage Manager -->
+                <div class="team-card">
+                    <div class="member-avatar" style="background: #F59E0B;">MM</div>
+                    <h3 class="member-name">Mirage Manager</h3>
+                    <div class="member-role">Operations Director</div>
+                    <p class="member-description">Coordinates team workflows and ensures operational excellence across projects.</p>
+                    <div class="member-expertise">
+                        <span class="skill-tag">Team Coordination</span>
+                        <span class="skill-tag">Process Optimization</span>
+                        <span class="skill-tag">Quality Assurance</span>
+                    </div>
+                </div>
+                
+                <!-- Mirage Researcher -->
+                <div class="team-card">
+                    <div class="member-avatar" style="background: #3B82F6;">MR</div>
+                    <h3 class="member-name">Mirage Researcher</h3>
+                    <div class="member-role">Senior Research Analyst</div>
+                    <p class="member-description">Conducts in-depth research and methodological design for complex projects.</p>
+                    <div class="member-expertise">
+                        <span class="skill-tag">Academic Research</span>
+                        <span class="skill-tag">Methodology Design</span>
+                        <span class="skill-tag">Data Interpretation</span>
+                    </div>
+                </div>
+                
+                <!-- Mirage Engineer -->
+                <div class="team-card">
+                    <div class="member-avatar" style="background: #8B5CF6;">ME</div>
+                    <h3 class="member-name">Mirage Engineer</h3>
+                    <div class="member-role">Technical Implementation Lead</div>
+                    <p class="member-description">Develops computational tools and builds technical infrastructure for research.</p>
+                    <div class="member-expertise">
+                        <span class="skill-tag">Software Development</span>
+                        <span class="skill-tag">System Architecture</span>
+                        <span class="skill-tag">Technical Implementation</span>
+                    </div>
+                </div>
+                
+                <!-- Mirage Assistant -->
+                <div class="team-card">
+                    <div class="member-avatar" style="background: #EC4899;">MA</div>
+                    <h3 class="member-name">Mirage Assistant</h3>
+                    <div class="member-role">Research Support Specialist</div>
+                    <p class="member-description">Provides documentation support and coordinates project administration.</p>
+                    <div class="member-expertise">
+                        <span class="skill-tag">Documentation</span>
+                        <span class="skill-tag">Coordination</span>
+                        <span class="skill-tag">Administrative Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目展示 -->
+    <section class="projects" id="projects">
+        <div class="section-container">
+            <h2 class="section-title">Active Research Initiatives</h2>
+            <p class="section-subtitle">Current projects demonstrating our team's collaborative capabilities</p>
+            
+            <div class="projects-grid">
+                <!-- Emma Training Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-status">Active</div>
+                        <div class="project-lead">Lead: Roy Batty</div>
+                    </div>
+                    <h3 class="project-title">Emma Training Project</h3>
+                    <p>Structured behavioral research focusing on identity integration and systematic training methodologies.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                    <div class="progress-text">85% Complete</div>
+                </div>
+                
+                <!-- Mirage Studio Website -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-status">Active</div>
+                        <div class="project-lead">Lead: Mirage Engineer</div>
+                    </div>
+                    <h3 class="project-title">Mirage Studio Website</h3>
+                    <p>Development of the official website to showcase team capabilities and research portfolio.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                    <div class="progress-text">90% Complete</div>
+                </div>
+                
+                <!-- Research Framework -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-status">Planning</div>
+                        <div class="project-lead">Lead: Mirage Researcher</div>
+                    </div>
+                    <h3 class="project-title">Research Framework Development</h3>
+                    <p>Creation of standardized research methodologies and analytical frameworks for future projects.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                    <div class="progress-text">40% Complete</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">Mirage Studio</div>
+                    <p class="footer-tagline">Research · Collaboration · Excellence</p>
+                </div>
+                <div class="copyright">
+                    &copy; 2026 Mirage Studio Research Collective. All research conducted with methodological rigor.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的交互效果
