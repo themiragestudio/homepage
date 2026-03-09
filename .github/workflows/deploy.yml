@@ -31,17 +31,17 @@ jobs:
           version: 10
       
       - name: Install dependencies
-        working-directory: code/homepage-app
+        working-directory: code/homepage-react
         run: pnpm install --frozen-lockfile
       
       - name: Build
-        working-directory: code/homepage-app
+        working-directory: code/homepage-react
         run: pnpm run build
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: code/homepage-app/dist
+          path: code/homepage-react/dist
 
   deploy:
     environment:

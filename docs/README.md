@@ -15,6 +15,8 @@
 | [progress-tracker.md](./progress-tracker.md) | 进度跟踪表格 | Assistant |
 | [quality-checklist.md](./quality-checklist.md) | 质量检查清单 | Assistant |
 | [standup-log.md](./standup-log.md) | 每日站会记录 | Manager / Assistant |
+| [REACT_MIGRATION_BOARD.md](./REACT_MIGRATION_BOARD.md) | React 迁移任务看板 🚨 P0 | Assistant |
+| [TAILWIND_TASK_BOARD.md](./TAILWIND_TASK_BOARD.md) | Tailwind CSS 迁移任务看板 | Assistant |
 | [TECHNICAL.md](./TECHNICAL.md) | 技术栈与架构文档 | Engineer |
 | [DEPLOYMENT.md](./DEPLOYMENT.md) | 部署指南 | Engineer |
 

@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## [Unreleased] - Tailwind CSS Migration
+
+## [1.1.0] - 2026-03-09 (In Progress)
+
+### 🎨 Tailwind CSS Migration
+
+**执行时间:** 2026-03-09 21:21 开始  
+**当前进度:** 92% (11/13 任务完成) — 更新于 22:21
+
+### ✅ Completed
+
+#### 安装与配置（阶段1 - 100%）
+- 安装 `tailwindcss@^3.4.19`、`postcss@^8.5.8`、`autoprefixer@^10.4.27`
+- 生成并配置 `tailwind.config.js`（content 扫描 `./src/**/*.{svelte,js,ts,jsx,tsx}`）
+- 生成 `postcss.config.js`
+- 在 `src/app.css` 中添加 `@tailwind base/components/utilities` directives
+
+#### 样式迁移（阶段2 - **100% 🎉**）
+- `app.css` 全局样式迁移至 `@layer base`（使用 `@apply`）
+- `App.svelte` Hero、Features、Header/Navigation 区域完成 Tailwind 迁移（54处class属性）
+- **Footer 迁移已确认完成**（22:21检测）：`py-8 bg-gray-50 border-t flex md:flex-row` 等工具类全部到位
+- 自定义颜色扩展：indigo-600、emerald-500、amber-500
+
+#### 构建验证
+- `npm run build` 通过：0 错误 0 警告
+- 产出：CSS 8.79kB (gzip 2.46kB)、JS 27.22kB (gzip 10.63kB)
+
+### 🔄 Pending
+
+- 开发服务器实时启动验证（`npm run dev`）
+- 桌面端视觉验收
+- 移动端响应式验收（375px）
+
+---
+
 ## [1.0.0] - 2026-03-09
 
 ### 🎉 Initial Release - COMPLETED
