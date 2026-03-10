@@ -5,7 +5,7 @@
 **状态:** ✅ 已完成（React 版本运行中）
 **版本:** 1.1.0
 **技术栈:** React 18 + Vite 7 + Tailwind CSS 3
-**访问地址:** GitHub Pages: https://themiragestudio.github.io/homepage/ | 生产服务器: http://42.192.51.42/ | 本地开发: http://localhost:8080
+**访问地址:** GitHub Pages: https://themiragestudio.github.io/homepage/ | 本地开发: http://localhost:8080
 
 ---
 
@@ -70,8 +70,7 @@ homepage/
 
 ## 已知问题
 
-- 开发服务器实时验证待执行（需手动确认 `npm run dev` 效果）
-- 桌面端与移动端视觉验收待完成
+- ~~生产服务器 42.192.51.42 已废弃~~ — QA 发现该服务器运行 Vite Dev 构建而非生产构建，且无 SSH 访问权限，已正式废弃。主要部署为 **GitHub Pages**。
 
 ---
 
