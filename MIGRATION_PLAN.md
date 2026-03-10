@@ -94,7 +94,7 @@ npm run build
 
 ---
 
-### 🤝 Assistant (mirage.assistant)
+### 🤝 Adrian Monk (mirage.quality)
 **任务:** 文档更新与进度跟踪
 - [ ] 更新README.md（技术栈变更）
 - [ ] 更新CHANGELOG.md（记录迁移）
@@ -123,7 +123,7 @@ npm run build
 ### Phase 1: 准备阶段 (23:00-23:30)
 1. **Researcher**: 开始技术调研
 2. **Engineer**: 创建React项目骨架
-3. **Assistant**: 准备文档模板
+3. **Adrian Monk**: 准备文档模板
 
 ### Phase 2: 核心迁移 (23:30-01:30)
 1. **Engineer**: 
@@ -137,7 +137,7 @@ npm run build
    - 审查代码质量
    - 优化建议
 
-3. **Assistant**: 
+3. **Adrian Monk**: 
    - 更新文档
    - 记录问题和解决方案
 
@@ -147,7 +147,7 @@ npm run build
    - 部署到服务器
    - 验证功能
 
-2. **Assistant**: 
+2. **Adrian Monk**: 
    - 验证部署
    - 完成文档
    - 准备报告

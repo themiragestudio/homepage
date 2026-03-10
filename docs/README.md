@@ -11,12 +11,12 @@
 
 | 文件 | 描述 | 负责人 |
 |------|------|--------|
-| [project-structure.md](./project-structure.md) | 项目文档结构模板 | Assistant |
-| [progress-tracker.md](./progress-tracker.md) | 进度跟踪表格 | Assistant |
-| [quality-checklist.md](./quality-checklist.md) | 质量检查清单 | Assistant |
-| [standup-log.md](./standup-log.md) | 每日站会记录 | Manager / Assistant |
-| [REACT_MIGRATION_BOARD.md](./REACT_MIGRATION_BOARD.md) | React 迁移任务看板 🚨 P0 | Assistant |
-| [TAILWIND_TASK_BOARD.md](./TAILWIND_TASK_BOARD.md) | Tailwind CSS 迁移任务看板 | Assistant |
+| [project-structure.md](./project-structure.md) | 项目文档结构模板 | Adrian Monk |
+| [progress-tracker.md](./progress-tracker.md) | 进度跟踪表格 | Adrian Monk |
+| [quality-checklist.md](./quality-checklist.md) | 质量检查清单 | Adrian Monk |
+| [standup-log.md](./standup-log.md) | 每日站会记录 | Manager / Adrian Monk |
+| [REACT_MIGRATION_BOARD.md](./REACT_MIGRATION_BOARD.md) | React 迁移任务看板 🚨 P0 | Adrian Monk |
+| [TAILWIND_TASK_BOARD.md](./TAILWIND_TASK_BOARD.md) | Tailwind CSS 迁移任务看板 | Adrian Monk |
 | [TECHNICAL.md](./TECHNICAL.md) | 技术栈与架构文档 | Engineer |
 | [DEPLOYMENT.md](./DEPLOYMENT.md) | 部署指南 | Engineer |
 
@@ -29,4 +29,4 @@
 
 ---
 
-*最后更新：2026-03-09 | 维护：Assistant*
+*最后更新：2026-03-09 | 维护：Adrian Monk*

@@ -47,7 +47,7 @@
 
 ---
 
-### 🤝 Assistant (mirage.assistant)
+### 🤝 Adrian Monk (mirage.quality)
 **任务:** 文档更新与进度跟踪  
 **状态:** ✅ 已分配  
 **开始时间:** 23:05  
@@ -74,9 +74,9 @@
 | 23:00-23:05 | 规划和分配 | Manager | ✅ 完成 |
 | 23:05-23:35 | 技术调研 | Researcher | 🔄 进行中 |
 | 23:05-01:05 | 核心开发 | Engineer | 🔄 进行中 |
-| 23:05-02:30 | 文档跟踪 | Assistant | 🔄 进行中 |
+| 23:05-02:30 | 文档跟踪 | Adrian Monk | 🔄 进行中 |
 | 01:05-01:30 | 构建部署 | Engineer | ⏳ 待开始 |
-| 01:30-02:00 | 部署验证 | Assistant | ⏳ 待开始 |
+| 01:30-02:00 | 部署验证 | Adrian Monk | ⏳ 待开始 |
 | 02:00-02:30 | 最终报告 | 全员 | ⏳ 待开始 |
 
 ---
@@ -89,15 +89,15 @@ Manager (规划)
     ↓
 Researcher (调研) → Engineer (实施)
     ↓                    ↓
-Assistant (文档) ← Engineer (部署)
+Adrian Monk (QA/文档) ← Engineer (部署)
     ↓
 Manager (验收)
 ```
 
 ### 沟通机制
 - **Researcher → Engineer**: 技术调研结果实时共享
-- **Engineer → Assistant**: 完成节点通知，触发文档更新
-- **Assistant → Manager**: 进度报告和问题上报
+- **Engineer → Adrian Monk**: 完成节点通知，触发文档更新
+- **Adrian Monk → Manager**: 进度报告和问题上报
 - **All → Manager**: 遇到阻塞立即上报
 
 ---
@@ -189,7 +189,7 @@ Manager (验收)
 - 负责: 核心开发
 - 可用性: 23:05-01:30
 
-**Assistant (mirage.assistant)**
+**Adrian Monk (mirage.quality)**
 - 负责: 文档和跟踪
 - 可用性: 全程在线
 

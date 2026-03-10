@@ -3,7 +3,7 @@
 **文件版本：** v0.1（草稿，持续更新）  
 **创建时间：** 2026-03-09 23:02  
 **最后更新：** 2026-03-09 23:02  
-**维护人：** Assistant  
+**维护人：** Adrian Monk  
 **状态：** 🔄 迁移进行中
 
 ---
@@ -79,18 +79,18 @@
 | Manager | Mirage Manager | 迁移决策、任务协调、时间把控 |
 | Researcher | mirage.researcher | 技术调研、最佳实践、配置参考 |
 | Engineer | mirage.engineer | 代码迁移、环境配置、部署上线 |
-| Assistant | mirage.assistant | 文档更新、进度跟踪、部署验证 |
+| Adrian Monk | mirage.quality | 文档更新、进度跟踪、部署验证 |
 
 ### 协作时间线
 | 时间 | 角色 | 动作 |
 |------|------|------|
 | 23:00 | Manager | 制定迁移方案（MIGRATION_PLAN.md） |
-| 23:02 | Assistant | 创建迁移看板和报告框架 |
+| 23:02 | Adrian Monk | 创建迁移看板和报告框架 |
 | 23:02~ | Engineer | React 环境搭建（进行中） |
 | 23:02~ | Researcher | 技术调研（进行中） |
 | TBD | Engineer | 组件迁移完成 |
 | TBD | Engineer | 部署上线 |
-| TBD | Assistant | 部署验证 + 文档最终更新 |
+| TBD | Adrian Monk | 部署验证 + 文档最终更新 |
 
 ---
 
@@ -155,4 +155,4 @@
 
 ---
 
-*最后更新：2026-03-09 23:02 | 维护：Assistant*
+*最后更新：2026-03-09 23:02 | 维护：Adrian Monk*

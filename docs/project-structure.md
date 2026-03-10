@@ -2,7 +2,7 @@
 
 **文档版本：** v1.0  
 **创建日期：** 2026-03-09  
-**维护人：** Assistant
+**维护人：** Adrian Monk
 
 ---
 
@@ -11,7 +11,7 @@
 ```
 homepage/
 ├── README.md                    # 项目总览（Manager 维护）
-├── docs/                        # 文档目录（Assistant 维护）
+├── docs/                        # 文档目录（Adrian Monk 维护）
 │   ├── README.md                # 文档导航首页
 │   ├── project-structure.md     # 本文档
 │   ├── progress-tracker.md      # 进度跟踪
@@ -83,8 +83,8 @@ homepage/
 | Manager | README.md、standup-log.md |
 | Researcher | design-guide.md、技术调研笔记 |
 | Engineer | tech-stack.md、代码注释 |
-| Assistant | 所有 docs/ 结构文档、进度跟踪、质量清单 |
+| Adrian Monk | 所有 docs/ 结构文档、进度跟踪、质量清单 |
 
 ---
 
-*最后更新：2026-03-09 | 维护：Assistant*
+*最后更新：2026-03-09 | 维护：Adrian Monk*
