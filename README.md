@@ -5,7 +5,7 @@
 **状态:** ✅ 已完成（React 版本运行中）
 **版本:** 1.1.0
 **技术栈:** React 18 + Vite 7 + Tailwind CSS 3
-**访问地址:** 生产: http://42.192.51.42/ | 本地开发: http://localhost:8080
+**访问地址:** GitHub Pages: https://themiragestudio.github.io/homepage/ | 生产服务器: http://42.192.51.42/ | 本地开发: http://localhost:8080
 
 ---
 
