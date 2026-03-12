@@ -1,0 +1,310 @@
+name: Deploy to GitHub Pages (Production-Safe)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ============================================
+  # JOB 1: BUILD WITH QUALITY GATES
+  # ============================================
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      build-success: ${{ steps.build-status.outputs.success }}
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+      
+      # QUALITY GATE 1: Dependencies
+      - name: 🔍 Install dependencies
+        working-directory: code/homepage-react
+        run: |
+          echo "::group::Installing dependencies"
+          pnpm install --frozen-lockfile
+          echo "::endgroup::"
+      
+      # QUALITY GATE 2: Linting
+      - name: 🧹 Lint code
+        working-directory: code/homepage-react
+        run: |
+          echo "::group::Running ESLint"
+          pnpm run lint
+          echo "::endgroup::"
+        continue-on-error: false
+      
+      # QUALITY GATE 3: Build
+      - name: 🏗️ Build project
+        id: build-step
+        working-directory: code/homepage-react
+        run: |
+          echo "::group::Building project"
+          pnpm run build
+          echo "::endgroup::"
+          
+          # Verify build output exists
+          if [ ! -d "dist" ]; then
+            echo "❌ ERROR: dist/ directory not created"
+            exit 1
+          fi
+          
+          if [ ! -f "dist/index.html" ]; then
+            echo "❌ ERROR: dist/index.html not found"
+            exit 1
+          fi
+          
+          echo "✅ Build output validated"
+      
+      # QUALITY GATE 4: Build Output Validation
+      - name: ✅ Validate build output
+        working-directory: code/homepage-react/dist
+        run: |
+          echo "::group::Validating build artifacts"
+          
+          # Check index.html exists and is not empty
+          if [ ! -s "index.html" ]; then
+            echo "❌ ERROR: index.html is missing or empty"
+            exit 1
+          fi
+          
+          # Check for common assets
+          asset_count=$(find . -type f \( -name "*.js" -o -name "*.css" \) | wc -l)
+          if [ "$asset_count" -lt 1 ]; then
+            echo "⚠️ WARNING: No JS/CSS assets found"
+          fi
+          
+          # Check total size is reasonable (not empty, not too large)
+          total_size=$(du -sk . | cut -f1)
+          if [ "$total_size" -lt 10 ]; then
+            echo "❌ ERROR: Build output too small ($total_size KB)"
+            exit 1
+          fi
+          
+          if [ "$total_size" -gt 102400 ]; then
+            echo "⚠️ WARNING: Build output very large ($total_size KB)"
+          fi
+          
+          echo "✅ Build artifacts validated"
+          echo "📊 Total size: ${total_size} KB"
+          echo "📊 Asset count: ${asset_count}"
+          echo "::endgroup::"
+      
+      - name: 📤 Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: code/homepage-react/dist
+      
+      - name: 📊 Set build status
+        id: build-status
+        if: success()
+        run: echo "success=true" >> $GITHUB_OUTPUT
+
+  # ============================================
+  # JOB 2: BACKUP CURRENT DEPLOYMENT
+  # ============================================
+  backup:
+    runs-on: ubuntu-latest
+    needs: build
+    if: needs.build.outputs.build-success == 'true'
+    steps:
+      - name: 💾 Download current live site
+        continue-on-error: true
+        run: |
+          echo "::group::Backing up current deployment"
+          
+          # Try to download current site
+          mkdir -p backup
+          cd backup
+          
+          # Download main page
+          curl -f -o index.html https://themiragestudio.github.io/homepage/ || echo "⚠️ Could not backup current site"
+          
+          # If backup succeeded, create artifact
+          if [ -f "index.html" ]; then
+            echo "✅ Backup created"
+            ls -lh
+          else
+            echo "ℹ️ No previous deployment to backup (first deploy?)"
+          fi
+          
+          echo "::endgroup::"
+      
+      - name: 📦 Upload backup artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-backup-${{ github.sha }}
+          path: backup/
+          retention-days: 30
+
+  # ============================================
+  # JOB 3: DEPLOY WITH VERIFICATION
+  # ============================================
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: [build, backup]
+    if: needs.build.outputs.build-success == 'true'
+    outputs:
+      deployment-url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      
+      - name: 📝 Log deployment
+        run: |
+          echo "::notice::Deployed to ${{ steps.deployment.outputs.page_url }}"
+          echo "::notice::Commit: ${{ github.sha }}"
+          echo "::notice::Time: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+
+  # ============================================
+  # JOB 4: POST-DEPLOYMENT VERIFICATION
+  # ============================================
+  verify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: ⏳ Wait for deployment propagation
+        run: |
+          echo "Waiting 30 seconds for CDN propagation..."
+          sleep 30
+      
+      - name: 🔍 Verify deployment health
+        run: |
+          echo "::group::Health check"
+          
+          URL="https://themiragestudio.github.io/homepage/"
+          
+          # Check 1: HTTP 200
+          echo "Checking HTTP status..."
+          status=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+          if [ "$status" != "200" ]; then
+            echo "❌ ERROR: Site returned HTTP $status"
+            exit 1
+          fi
+          echo "✅ HTTP 200 OK"
+          
+          # Check 2: Content not empty
+          echo "Checking content..."
+          content=$(curl -s "$URL")
+          content_length=${#content}
+          if [ "$content_length" -lt 100 ]; then
+            echo "❌ ERROR: Content too short ($content_length bytes)"
+            exit 1
+          fi
+          echo "✅ Content length: $content_length bytes"
+          
+          # Check 3: HTML structure
+          echo "Checking HTML structure..."
+          if ! echo "$content" | grep -q "<html"; then
+            echo "❌ ERROR: No <html> tag found"
+            exit 1
+          fi
+          if ! echo "$content" | grep -q "<head"; then
+            echo "❌ ERROR: No <head> tag found"
+            exit 1
+          fi
+          if ! echo "$content" | grep -q "<body"; then
+            echo "❌ ERROR: No <body> tag found"
+            exit 1
+          fi
+          echo "✅ HTML structure valid"
+          
+          # Check 4: Title present
+          echo "Checking page title..."
+          if ! echo "$content" | grep -q "<title>"; then
+            echo "⚠️ WARNING: No <title> tag found"
+          else
+            title=$(echo "$content" | grep -o "<title>[^<]*" | sed 's/<title>//')
+            echo "✅ Title: $title"
+          fi
+          
+          echo "::endgroup::"
+          echo "::notice::✅ Deployment verification passed"
+      
+      - name: 🎉 Deployment successful
+        run: |
+          echo "::notice::🎉 Deployment completed and verified successfully!"
+          echo "::notice::Site is live at: https://themiragestudio.github.io/homepage/"
+
+  # ============================================
+  # JOB 5: ROLLBACK ON FAILURE
+  # ============================================
+  rollback:
+    runs-on: ubuntu-latest
+    needs: [deploy, verify]
+    if: failure()
+    steps:
+      - name: 🚨 Deployment failed - initiating rollback
+        run: |
+          echo "::error::Deployment or verification failed!"
+          echo "::error::Manual intervention required"
+          echo "::error::To rollback manually:"
+          echo "::error::1. Go to Actions tab"
+          echo "::error::2. Find last successful deployment"
+          echo "::error::3. Click 'Re-run jobs'"
+      
+      - name: 📥 Download backup
+        uses: actions/download-artifact@v4
+        with:
+          name: deployment-backup-${{ github.sha }}
+          path: backup/
+        continue-on-error: true
+      
+      - name: 📋 Rollback instructions
+        run: |
+          echo "::warning::Automatic rollback not yet implemented"
+          echo "::warning::Backup artifact: deployment-backup-${{ github.sha }}"
+          echo "::warning::Previous deployment should still be live"
+          
+          if [ -f "backup/index.html" ]; then
+            echo "::notice::Backup available for manual restore"
+          fi
+
+  # ============================================
+  # JOB 6: NOTIFICATION
+  # ============================================
+  notify:
+    runs-on: ubuntu-latest
+    needs: [build, deploy, verify]
+    if: always()
+    steps:
+      - name: 📊 Deployment summary
+        run: |
+          echo "::group::Deployment Summary"
+          echo "Build: ${{ needs.build.result }}"
+          echo "Deploy: ${{ needs.deploy.result }}"
+          echo "Verify: ${{ needs.verify.result }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "::endgroup::"
+          
+          if [ "${{ needs.verify.result }}" == "success" ]; then
+            echo "::notice::✅ Full deployment pipeline succeeded"
+          else
+            echo "::error::❌ Deployment pipeline failed - check logs above"
+          fi

@@ -1,0 +1,225 @@
+// src/data/models.js
+// 模型数据 - 参考 evolink.ai/models
+
+export const modelCategories = [
+  { id: 'text', name: '文本生成', color: '#3B82F6', icon: '📝' },
+  { id: 'image', name: '图像生成', color: '#10B981', icon: '🖼️' },
+  { id: 'video', name: '视频生成', color: '#8B5CF6', icon: '🎬' },
+  { id: 'audio', name: '音频生成', color: '#EC4899', icon: '🎵' },
+  { id: 'multimodal', name: '多模态', color: '#F59E0B', icon: '🔮' },
+  { id: 'reasoning', name: '推理模型', color: '#EF4444', icon: '🧠' }
+];
+
+export const modelProviders = [
+  { id: 'openai', name: 'OpenAI', color: '#10A37F' },
+  { id: 'anthropic', name: 'Anthropic', color: '#D4A017' },
+  { id: 'google', name: 'Google', color: '#4285F4' },
+  { id: 'deepseek', name: 'DeepSeek', color: '#1E40AF' },
+  { id: 'kling', name: 'Kling', color: '#7C3AED' },
+  { id: 'alibaba', name: 'Alibaba', color: '#FF6B00' },
+  { id: 'bytedance', name: 'ByteDance', color: '#FF0000' },
+  { id: 'minimax', name: 'MiniMax', color: '#00B894' },
+  { id: 'byteplus', name: 'BytePlus', color: '#6C5CE7' },
+  { id: 'xai', name: 'xAI', color: '#000000' },
+  { id: 'suno', name: 'Suno', color: '#FF6B6B' },
+  { id: 'raphael', name: 'Raphael', color: '#00CEC9' },
+  { id: 'moonshot', name: 'Moonshot', color: '#0984E3' }
+];
+
+export const aiModels = [
+  {
+    id: 'gpt-5-4',
+    name: 'GPT-5.4',
+    provider: 'openai',
+    category: 'text',
+    description: 'OpenAI的最新旗舰模型，专为编码和代理任务设计，拥有1.05M上下文窗口，128K最大输出，以及先进的推理能力。',
+    pricing: { unit: '每百万tokens', price: 2.0, currency: 'USD' },
+    credits: 144,
+    discount: 20,
+    features: ['1.05M上下文', '128K输出', '高级推理', '编码优化'],
+    status: 'available',
+    tags: ['coding', 'agentic', 'reasoning']
+  },
+  {
+    id: 'claude-sonnet-4-6',
+    name: 'Claude Sonnet 4.6',
+    provider: 'anthropic',
+    category: 'text',
+    description: '在编码和代理任务中速度、智能和成本的最佳平衡。200K上下文，128K最大输出，支持扩展思考。',
+    pricing: { unit: '每百万tokens', price: 2.551, currency: 'USD' },
+    credits: 183.6,
+    discount: 15,
+    features: ['200K上下文', '128K输出', '扩展思考', '编码优化'],
+    status: 'available',
+    tags: ['coding', 'agentic', 'balanced']
+  },
+  {
+    id: 'deepseek-v4',
+    name: 'DeepSeek V4',
+    provider: 'deepseek',
+    category: 'text',
+    description: 'DeepSeek V4系列模型，拥有128K上下文窗口和具有竞争力的定价。提供Chat和Reasoner变体以满足不同用例。',
+    pricing: { unit: '每百万tokens', price: 0.278, currency: 'USD' },
+    credits: 20,
+    discount: 0,
+    features: ['128K上下文', 'Chat/Reasoner变体', '性价比高'],
+    status: 'early-access',
+    tags: ['general-purpose', 'cost-effective']
+  },
+  {
+    id: 'nano-banana-2',
+    name: 'Nano Banana 2',
+    provider: 'google',
+    category: 'image',
+    description: '下一代Nano Banana模型，提供卓越的图像生成质量，增强细节和出色的提示遵循能力。针对速度和成本效率进行了优化。',
+    pricing: { unit: '每张图像', price: 0.034, currency: 'USD' },
+    credits: 2.4,
+    discount: 50,
+    features: ['增强细节', '快速生成', '成本高效', '专业级质量'],
+    status: 'available',
+    tags: ['fast', 'detailed', 'professional']
+  },
+  {
+    id: 'kling-3-0',
+    name: 'Kling 3.0 Motion Control',
+    provider: 'kling',
+    category: 'video',
+    description: '将参考视频中的人类动作转移到参考图像中的角色上。支持标准/专业质量，按秒计费。',
+    pricing: { unit: '每秒', price: 0.114, currency: 'USD' },
+    credits: 8.1648,
+    discount: 10,
+    features: ['动作控制', '参考视频', '风格引导', '按秒计费'],
+    status: 'available',
+    tags: ['motion-control', 'reference-based']
+  },
+  {
+    id: 'sora-2',
+    name: 'Sora 2',
+    provider: 'openai',
+    category: 'video',
+    description: 'OpenAI最新的10~15秒视频生成模型，支持音频。支持水印移除（1.65倍价格）。',
+    pricing: { unit: '每秒', price: 0.08, currency: 'USD' },
+    credits: 5.76,
+    discount: 20,
+    features: ['10-15秒视频', '音频支持', '水印移除', '高质量'],
+    status: 'available',
+    tags: ['long-video', 'audio', 'high-quality']
+  },
+  {
+    id: 'veo-3-1',
+    name: 'Veo 3.1',
+    provider: 'google',
+    category: 'video',
+    description: 'Google DeepMind下一代视频模型，提供快速和专业变体。支持8秒视频生成，增强质量。',
+    pricing: { unit: '每个视频', price: 0.169, currency: 'USD' },
+    credits: 12.1,
+    discount: 86,
+    features: ['8秒视频', '快速/专业变体', '增强质量', 'Google技术'],
+    status: 'available',
+    tags: ['fast', 'pro-variant', 'enhanced-quality']
+  },
+  {
+    id: 'wan-2-6',
+    name: 'Wan 2.6',
+    provider: 'alibaba',
+    category: 'video',
+    description: '通义万相2.6视频生成模型，支持文本到视频、图像到视频和参考视频变体。',
+    pricing: { unit: '每秒', price: 0.071, currency: 'USD' },
+    credits: 5.1,
+    discount: 31,
+    features: ['T2V/I2V', '参考视频', '阿里云技术', '性价比高'],
+    status: 'available',
+    tags: ['t2v', 'i2v', 'cost-effective']
+  },
+  {
+    id: 'suno',
+    name: 'Suno',
+    provider: 'suno',
+    category: 'audio',
+    description: 'AI驱动的音乐生成，支持人声、歌词和乐器。从文本提示创建专业质量的歌曲，提供多个模型版本。',
+    pricing: { unit: '每首曲目', price: 0.112, currency: 'USD' },
+    credits: 8,
+    discount: 0,
+    features: ['音乐生成', '人声支持', '歌词创作', '多版本'],
+    status: 'available',
+    tags: ['music', 'vocals', 'lyrics', 'professional']
+  },
+  {
+    id: 'gemini-3-1-pro',
+    name: 'Gemini 3.1 Pro Preview',
+    provider: 'google',
+    category: 'multimodal',
+    description: 'Google最新的Gemini 3 Pro迭代，具有先进的多模态能力和扩展的上下文支持。',
+    pricing: { unit: '每百万tokens', price: 1.6, currency: 'USD' },
+    credits: 115.2,
+    discount: 20,
+    features: ['多模态', '扩展上下文', '预览版本', '先进能力'],
+    status: 'preview',
+    tags: ['multimodal', 'preview', 'advanced']
+  },
+  {
+    id: 'deepseek-reasoner',
+    name: 'DeepSeek Reasoner',
+    provider: 'deepseek',
+    category: 'reasoning',
+    description: '高级推理模型（DeepSeek-R1），具有思维链能力，128K上下文窗口，针对复杂问题解决任务进行了优化。',
+    pricing: { unit: '每百万tokens', price: 0.278, currency: 'USD' },
+    credits: 20,
+    discount: 0,
+    features: ['思维链', '128K上下文', '复杂问题解决', '性价比高'],
+    status: 'available',
+    tags: ['reasoning', 'chain-of-thought', 'problem-solving']
+  },
+  {
+    id: 'kimi-k2-thinking',
+    name: 'Kimi K2 Thinking',
+    provider: 'moonshot',
+    category: 'reasoning',
+    description: 'Moonshot的高级推理模型，具有扩展的思考能力和网络搜索支持，适用于复杂问题解决。',
+    pricing: { unit: '每百万tokens', price: 0.556, currency: 'USD' },
+    credits: 40,
+    discount: 1,
+    features: ['扩展思考', '网络搜索', '复杂推理', '中文优化'],
+    status: 'available',
+    tags: ['reasoning', 'web-search', 'chinese-optimized']
+  },
+  {
+    id: 'seedance-2-0',
+    name: 'Seedance 2.0',
+    provider: 'byteplus',
+    category: 'video',
+    description: '多模态视频生成，支持@-reference系统。T2V、I2V和V2V模式。4-15秒时长，原生音频同步。',
+    pricing: { unit: '每个视频', price: 0.25, currency: 'USD' },
+    credits: 18,
+    discount: 0,
+    features: ['多模态', '@-reference', '音频同步', '4-15秒'],
+    status: 'early-access',
+    tags: ['multimodal', 'reference', 'audio-sync']
+  },
+  {
+    id: 'grok-imagine-video',
+    name: 'Grok Imagine Video',
+    provider: 'xai',
+    category: 'video',
+    description: 'xAI Grok Imagine视频生成API，支持文本到视频和图像到视频。6-10秒时长，提供有趣/正常/辛辣风格模式。',
+    pricing: { unit: '每个视频', price: 0.064, currency: 'USD' },
+    credits: 4.6,
+    discount: 79,
+    features: ['T2V/I2V', '风格模式', '6-10秒', 'xAI技术'],
+    status: 'available',
+    tags: ['t2v', 'i2v', 'style-modes', 'xai']
+  },
+  {
+    id: 'z-image-turbo',
+    name: 'Z Image Turbo',
+    provider: 'raphael',
+    category: 'image',
+    description: '超快速图像生成模型，具有卓越的质量与速度比。适用于高容量图像生成，具有出色的提示遵循能力。',
+    pricing: { unit: '每张图像', price: 0.0036, currency: 'USD' },
+    credits: 0.26,
+    discount: 76,
+    features: ['超快速', '高质量', '高容量', '性价比极高'],
+    status: 'available',
+    tags: ['ultra-fast', 'high-volume', 'cost-effective']
+  }
+];
